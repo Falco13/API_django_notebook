@@ -4,8 +4,26 @@ from rest_framework import status
 from notes.models import Note
 from api.serializers import NoteSerializer, ThinNoteSerializer
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 
 
+class NoteViewSet(ModelViewSet):
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
+    # http_method_names = ['get', 'post']
+
+    def list(self, request, *args, **kwargs):
+        notes = Note.objects.all()
+        context = {'request': request}
+        serializer = ThinNoteSerializer(notes, many=True, context=context)
+        return Response(serializer.data)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+
+# views as class APIView
+'''
 class NoteListView(APIView):
     def get(self, request):
         notes = Note.objects.all()
@@ -44,8 +62,9 @@ class NoteDetailView(APIView):
     def delete(self, request, pk):
         note = self.get_object(pk)
         note.delete()
+'''
 
-
+# views as functions
 '''
 @api_view(['GET', 'POST'])
 def notes_list(request):
