@@ -2,14 +2,25 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from notes.models import Note
-from api.serializers import NoteSerializer, ThinNoteSerializer
+from api.serializers import NoteSerializer, ThinNoteSerializer, UserSerializer
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
+from api.permissions import IsAuthorOrReadOnly
+from django.contrib.auth import get_user_model
+
+
+class UserViewSet(ModelViewSet):
+    model = get_user_model()
+    queryset = model.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAdminUser]
 
 
 class NoteViewSet(ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+    permission_classes = [IsAuthorOrReadOnly]
     # http_method_names = ['get', 'post']
 
     def list(self, request, *args, **kwargs):
