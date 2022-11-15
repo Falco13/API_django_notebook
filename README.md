@@ -1,6 +1,6 @@
 # REST API Notebook application - Django
 
-- Bookstore with title, descriptions and author.
+- Notes with title, text and author.
 - Implemented the ability to filter, search and sort.
 
 
