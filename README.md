@@ -1,7 +1,7 @@
 # REST API Notebook application - Django
 
-- Notes with title, text and author.
-- Implemented the ability to filter, search and sort.
+- Notes with title, text, dates and author.
+- Implemented own permissions.
 
 
 __API end-points:__
