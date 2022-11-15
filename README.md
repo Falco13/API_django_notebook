@@ -2,7 +2,7 @@
 
 - Notes with title, text, dates and author.
 - Implemented own permissions.
-- Views implemented as a functions, as a APIView and ViewsSet.
+- Views implemented as a functions, as a APIView and ViewSet.
 
 
 __API end-points:__
